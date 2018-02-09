@@ -1,14 +1,27 @@
 //dodajemy toggle po naciscnicu li
-$("li").click(function(){
+//dodajemy on zeby przypisac event listener do nowo tworzonych li
+$("ul").on("click","li",function(){
 	$(this).toggleClass('selected');
 });
 
 //Click on X delete Todo
-$("span").click(function(event){
+$("ul").on("click","span",function(event){
 	$(this).parent().fadeOut(500, function(){
 		$(this).remove();
 	});
 	//Zatrzymujemy propagacje click listenerów
 	event.stopPropagation();
+});
 
+//po naciscniecu ENTER dodaje <li> 
+$("input[type='text']").keypress(function(event) {
+	if(event.which === 13){
+		//grabbing new text from input
+		var todoText = $(this).val();
+		//czyszcze input
+		$(this).val("");
+
+		//create new li and add to ul
+		$("ul").append('<li><span>X</span> ' + todoText + '</li>')
+	}
 });
